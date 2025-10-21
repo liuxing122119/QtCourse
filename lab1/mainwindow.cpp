@@ -28,6 +28,19 @@ MainWindow::MainWindow(QWidget *parent)
         connect(btn,SIGNAL(clicked()),this,SLOT(btnNumClicked()));
     }
 
+    operatorBTNs = {
+        {Qt::Key_Plus, ui->btnPlus},
+        {Qt::Key_Minus, ui->btnMinus},
+        {Qt::Key_Asterisk, ui->btnMultiple},
+        {Qt::Key_Slash, ui->btnDivide},
+        {Qt::Key_Equal, ui->btnEqual},
+        {Qt::Key_Enter, ui->btnEqual},
+        {Qt::Key_Return, ui->btnEqual},
+        {Qt::Key_Period, ui->btnPeriod},
+        {Qt::Key_Backspace, ui->btnDel},
+        {Qt::Key_Escape, ui->btnClearAll}
+    };
+
     connect(ui->btnPlus,SIGNAL(clicked()),this,SLOT(btnBinaryOperatorClicked()));
     connect(ui->btnMinus,SIGNAL(clicked()),this,SLOT(btnBinaryOperatorClicked()));
     connect(ui->btnMultiple,SIGNAL(clicked()),this,SLOT(btnBinaryOperatorClicked()));
@@ -199,6 +212,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     foreach (auto btnKey, digitBTNs.keys()) {
         if(event->key() == btnKey){
             digitBTNs[btnKey]->animateClick();
+        }
+    }
+
+    foreach (auto btnKey, operatorBTNs.keys()) {
+        if(event->key() == btnKey){
+            operatorBTNs[btnKey]->animateClick();
         }
     }
 }
