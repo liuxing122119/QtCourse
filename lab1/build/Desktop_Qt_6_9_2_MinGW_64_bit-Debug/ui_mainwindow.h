@@ -310,7 +310,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "\350\256\241\347\256\227\345\231\250", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "\350\256\241\347\256\227\345\231\250-\346\226\271\345\206\260\347\216\211-2023414290410", nullptr));
         btnNum4->setText(QCoreApplication::translate("MainWindow", "4", nullptr));
         btnSqrt->setText(QCoreApplication::translate("MainWindow", "\342\210\232", nullptr));
         btnClear->setText(QCoreApplication::translate("MainWindow", "CE", nullptr));
