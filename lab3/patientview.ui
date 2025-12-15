@@ -63,7 +63,7 @@
        </property>
        <property name="icon">
         <iconset resource="res.qrc">
-         <normaloff>:/images/delete.png</normaloff>:/images/delete.png</iconset>
+         <normaloff>:/images/update.png</normaloff>:/images/update.png</iconset>
        </property>
       </widget>
      </item>
