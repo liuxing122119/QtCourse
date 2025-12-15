@@ -54,6 +54,7 @@ bool IDatabase::deleteCurrentPatient()
     patientTabModel->removeRow(curIndex.row());
     patientTabModel->submitAll();
     patientTabModel->select();
+    thePatientSelection->clearSelection();
     return true;
 }
 

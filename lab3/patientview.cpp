@@ -25,6 +25,7 @@ PatientView::~PatientView()
     delete ui;
 }
 
+
 void PatientView::on_btAdd_clicked()
 {
     int currow = IDatabase::getInstance().addNewPatient();
