@@ -114,6 +114,9 @@ void MasterView::on_stackedWidget_currentChanged(int arg1)
     if (title == "欢迎"){
         ui->btLogout->setEnabled(true);
         ui->btBack->setEnabled(false);
+    }  else if (title == "登录"){
+        ui->btLogout->setEnabled(false);
+        ui->btBack->setEnabled(false);
     } else
         ui->btLogout->setEnabled(false);
 }
