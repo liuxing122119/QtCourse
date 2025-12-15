@@ -1,6 +1,7 @@
 #include "idatabase.h"
+#include <QUuid>
 
-void IDatabase::initDatabase()
+void IDatabase::ininDatabase()
 {
     database = QSqlDatabase::addDatabase("QSQLITE");
     QString aFile = "D:/code/QT/ex/lab3.db";
@@ -16,13 +17,29 @@ bool IDatabase::initPatientModel()
 {
     patientTabModel = new QSqlTableModel(this,database);
     patientTabModel->setTable("patient");
-    patientTabModel->setEditStrategy(QSqlTableModel::OnManualSubmit);//数据保存方式
-    patientTabModel->setSort(patientTabModel->fieldIndex("name"),Qt::AscendingOrder);//排序
-    if (!(patientTabModel->select()))//查询返回
+    patientTabModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    patientTabModel->setSort(patientTabModel->fieldIndex("name"),Qt::AscendingOrder);
+    if (!(patientTabModel->select()))
         return false;
     thePatientSelection = new QItemSelectionModel(patientTabModel);
     return true;
 }
+
+int IDatabase::addNewPatient()
+{
+    patientTabModel->insertRow(patientTabModel->rowCount(),QModelIndex());
+    QModelIndex curIndex = patientTabModel->index(patientTabModel->rowCount()-1,1);
+
+    int curRecNo = curIndex.row();
+    QSqlRecord curRec = patientTabModel->record(curRecNo);
+    curRec.setValue("CREATEDTIMESTAMP",QDateTime::currentDateTime().toString("yyyy-MM-dd"));
+    curRec.setValue("ID",QUuid::createUuid().toString(QUuid::WithoutBraces));
+    patientTabModel->setRecord(curRecNo,curRec);
+
+    return curIndex.row();
+}
+
+
 
 bool IDatabase::searchPatient(QString filter)
 {
@@ -36,6 +53,7 @@ bool IDatabase::deleteCurrentPatient()
     patientTabModel->removeRow(curIndex.row());
     patientTabModel->submitAll();
     patientTabModel->select();
+    return true;
 }
 
 bool IDatabase::submitPatientEdit()
@@ -73,5 +91,5 @@ QString IDatabase::userLogin(QString useName, QString password)
 
 IDatabase::IDatabase(QObject *parent): QObject{parent}
 {
-    initDatabase();
+    ininDatabase();
 }

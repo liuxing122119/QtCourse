@@ -17,12 +17,20 @@
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLineEdit" name="txtSearch"/>
+      <widget class="QLineEdit" name="txtSearch">
+       <property name="placeholderText">
+        <string>请输入姓名进行查找</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btSearch">
        <property name="text">
         <string>查找</string>
+       </property>
+       <property name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
        </property>
       </widget>
      </item>
@@ -31,6 +39,10 @@
        <property name="text">
         <string>添加</string>
        </property>
+       <property name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/images/add.png</normaloff>:/images/add.png</iconset>
+       </property>
       </widget>
      </item>
      <item>
@@ -38,12 +50,20 @@
        <property name="text">
         <string>删除</string>
        </property>
+       <property name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/images/delete.png</normaloff>:/images/delete.png</iconset>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btEdit">
        <property name="text">
         <string>修改</string>
+       </property>
+       <property name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/images/delete.png</normaloff>:/images/delete.png</iconset>
        </property>
       </widget>
      </item>
@@ -54,6 +74,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

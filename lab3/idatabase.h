@@ -15,6 +15,7 @@ public:
         static IDatabase instance;
         return instance;
     }
+
     QString userLogin(QString useName,QString password);
 
 private:
@@ -24,12 +25,13 @@ private:
 
     QSqlDatabase database;
 
-    void initDatabase();
+    void ininDatabase();
 
 signals:
 
 public:
     bool initPatientModel();
+    int addNewPatient();
     bool searchPatient(QString filter);
     bool deleteCurrentPatient();
     bool submitPatientEdit();
