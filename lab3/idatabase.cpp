@@ -34,7 +34,6 @@ int IDatabase::addNewPatient()
     QSqlRecord curRec = patientTabModel->record(curRecNo);
     curRec.setValue("CREATEDTIMESTAMP",QDateTime::currentDateTime().toString("yyyy-MM-dd"));
     curRec.setValue("ID",QUuid::createUuid().toString(QUuid::WithoutBraces));
-
     patientTabModel->setRecord(curRecNo,curRec);
 
     return curIndex.row();
