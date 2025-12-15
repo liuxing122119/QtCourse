@@ -34,6 +34,7 @@ PatientEditView::~PatientEditView()
 
 void PatientEditView::on_btSave_clicked()
 {
+    dataMapper->submit();
     IDatabase::getInstance().submitPatientEdit();
     emit goPreviousView();
 }
