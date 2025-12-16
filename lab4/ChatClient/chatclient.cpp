@@ -5,7 +5,11 @@
 
 ChatClient::ChatClient(QObject *parent)
     : QObject{parent}
-{}
+{
+    m_clientSocket = new QTcpSocket(this);
+    connect(m_clientSocket,&QTcpSocket::connected,this,&ChatClient::connected);
+    connect(m_clientSocket,&QTcpSocket::readyRead,this,&ChatClient::onReadyRead);
+}
 
 void ChatClient::onReadyRead()
 {
