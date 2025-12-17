@@ -18,6 +18,10 @@ PatientView::PatientView(QWidget *parent)
         ui->tableView->setModel(iDatabase.patientTabModel);
         ui->tableView->setSelectionModel(iDatabase.thePatientSelection);
     }
+
+    ui->btDelete->setEnabled(false);
+    ui->btEdit->setEnabled(false);
+    connect(iDatabase.thePatientSelection,SIGNAL(selectionChanged(QItemSelection,QItemSelection)),this,SLOT(onSelectionChanged()));
 }
 
 PatientView::~PatientView()
@@ -49,5 +53,13 @@ void PatientView::on_btEdit_clicked()
 {
     QModelIndex curIndex = IDatabase::getInstance().thePatientSelection->currentIndex();
     emit goPatientEditView(curIndex.row());
+}
+
+void PatientView::onSelectionChanged()
+{
+    IDatabase &iDatabase = IDatabase::getInstance();
+    bool hasSelect = iDatabase.thePatientSelection->hasSelection();
+    ui->btEdit->setEnabled(hasSelect);
+    ui->btDelete->setEnabled(hasSelect);
 }
 
