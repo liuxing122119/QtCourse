@@ -21,7 +21,7 @@ PatientView::PatientView(QWidget *parent)
 
     ui->btDelete->setEnabled(false);
     ui->btEdit->setEnabled(false);
-    connect(iDatabase.thePatientSelection,SIGNAL(selectionChanged(QItemSelection,QItemSelection)),this,SLOT(onSelectionChanged()));
+    connect(iDatabase.thePatientSelection, SIGNAL(selectionChanged(QItemSelection,QItemSelection)),this, SLOT(onSelectionChanged()));
 }
 
 PatientView::~PatientView()
@@ -46,6 +46,7 @@ void PatientView::on_btSearch_clicked()
 void PatientView::on_btDelete_clicked()
 {
     IDatabase::getInstance().deleteCurrentPatient();
+    onSelectionChanged();
 }
 
 
@@ -53,13 +54,13 @@ void PatientView::on_btEdit_clicked()
 {
     QModelIndex curIndex = IDatabase::getInstance().thePatientSelection->currentIndex();
     emit goPatientEditView(curIndex.row());
+    onSelectionChanged();
 }
+
 
 void PatientView::onSelectionChanged()
 {
-    IDatabase &iDatabase = IDatabase::getInstance();
-    bool hasSelect = iDatabase.thePatientSelection->hasSelection();
-    ui->btEdit->setEnabled(hasSelect);
-    ui->btDelete->setEnabled(hasSelect);
+    isSelected = !isSelected;
+    ui->btEdit->setEnabled(isSelected);
+    ui->btDelete->setEnabled(isSelected);
 }
-

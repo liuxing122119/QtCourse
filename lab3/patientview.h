@@ -31,6 +31,7 @@ signals:
 
 private:
     Ui::PatientView *ui;
+    bool isSelected = false;
 };
 
 #endif // PATIENTVIEW_H
