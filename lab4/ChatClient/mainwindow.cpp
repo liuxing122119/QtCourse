@@ -45,7 +45,7 @@ void MainWindow::on_logoutButton_clicked()
         ui->userListWidget->removeItemWidget(aItem);
         delete aItem;
     }
-    ui->titleLabel->setText("方冰玉的聊天室");
+    ui->titleLabel->setText("方冰玉的聊天室(2023414290410)");
 }
 
 void MainWindow::connectedToServer()
