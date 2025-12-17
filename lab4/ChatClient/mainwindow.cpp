@@ -45,11 +45,12 @@ void MainWindow::on_logoutButton_clicked()
         ui->userListWidget->removeItemWidget(aItem);
         delete aItem;
     }
+    ui->titleLabel->setText("方冰玉的聊天室");
 }
 
 void MainWindow::connectedToServer()
 {
-    ui->stackedWidget->setCurrentWidget(ui->chatPage);
+    // ui->stackedWidget->setCurrentWidget(ui->chatPage);
     m_chatClient->sendMessage(ui->usernameEdit->text(),"login");
 }
 
@@ -63,6 +64,13 @@ void MainWindow::jsonReceived(const QJsonObject &docObj)
     const QJsonValue typeVal = docObj.value("type");
     if (typeVal.isNull() || !typeVal.isString())
         return;
+
+    if (typeVal.toString().compare("userexists",Qt::CaseInsensitive) == 0) {
+        m_chatClient->disconnectFromHost();
+        ui->stackedWidget->setCurrentWidget(ui->loginPage);
+        return;
+    }
+
     if (typeVal.toString().compare("message",Qt::CaseInsensitive) == 0) {
         const QJsonValue textVal = docObj.value("text");
         const QJsonValue senderVal = docObj.value("sender");
@@ -92,6 +100,9 @@ void MainWindow::jsonReceived(const QJsonObject &docObj)
 
         qDebug() << userlistVal.toVariant().toStringList();
         userListReceived(userlistVal.toVariant().toStringList());
+
+        ui->stackedWidget->setCurrentWidget(ui->chatPage);
+        ui->titleLabel->setText(QString("%1 的聊天室").arg(ui->usernameEdit->text()));
     }
 }
 

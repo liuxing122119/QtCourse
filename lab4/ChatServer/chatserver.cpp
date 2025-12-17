@@ -52,11 +52,30 @@ void ChatServer::jsonReceived(ServerWorker *sender, const QJsonObject &docObj)
         message["type"] = "message";
         message["text"] = text;
         message["sender"] = sender->userName();
+
         broadcast(message,sender);
     } else if (typeVal.toString().compare("login",Qt::CaseInsensitive) == 0) {
         const QJsonValue usernameVal = docObj.value("text");
         if (usernameVal.isNull() || !usernameVal.isString())
             return;
+
+        QString newUsername = usernameVal.toString().trimmed();
+        bool usernameExists = false;
+        for (ServerWorker *worker: m_clients) {
+            QString workerUsername = worker->userName().trimmed();
+            if (!workerUsername.isEmpty() && workerUsername == newUsername) {
+                usernameExists = true;
+                break;
+            }
+        }
+
+        if (usernameExists) {
+            QJsonObject existMessage;
+            existMessage["type"] = "userexists";
+            sender->sendJson(existMessage);
+            return;
+        }
+
         sender->setUserName(usernameVal.toString());
         QJsonObject connectedMessage;
         connectedMessage["type"] = "newuser";
